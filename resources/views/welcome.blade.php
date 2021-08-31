@@ -21,21 +21,25 @@
         </style>
     </head>
     <body>
-        <h1>Algum Título</h1>
-        @if(10 > 5)
-            <p>A condição é true</p>
-        @endif
+        @for($i = 0; $i < count($arr); $i++)
+            <p>{{$arr[$i]}} - {{$i}}</p>
+            @if($i == 2)
+            <p style="color: green; background-color: black;">O i é 2</p>
+            @endif
+        @endfor
 
-        <p>
-            {{$nome}}
-        </p>
+        @foreach($nomes as $indice => $nome)
+            <p>{{$indice}} - {{$nome}}</p>
+            <p>{{$loop->index}}</p>
+        @endforeach
 
-        @if($nome == "Pedro")
-        <p>O nome é Pedro</p>
-        @elseif($nome == "Wesley")
-        <p>O nome é {{$nome}} e ele tem {{ $idade }} anos e sua profissão é {{ $profissao }}.</p>
-        @else
-        <p>O nome não é Pedro</p>
-        @endif
+        @php
+            $name = "Wesley em PHP";
+            echo $name;
+        @endphp
+
+        <!--Comentário com HTML é renderizado na inspeção-->
+
+        {{--Comentário do Blade não é renderizado na inspeção--}}
    </body>
 </html>
