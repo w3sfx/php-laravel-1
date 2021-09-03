@@ -32,4 +32,19 @@ class EventController extends Controller
     public function produtosid($id = null) {
         return view('product', ['id' => $id]);
     }
+
+    public function store(Request $request) {
+
+        $event = new Event;
+
+        $event->title = $request->title;
+        $event->city = $request->city;
+        $event->private = $request->private;
+        $event->description = $request->description;
+
+        $event->save();
+
+        return redirect('/')->with('msg', 'Evento criado com sucesso!');
+
+    }
 }
