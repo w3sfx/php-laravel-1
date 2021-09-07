@@ -25,4 +25,6 @@ Route::get('/contact', [EventController::class, 'contact']);
 
 Route::post('/events', [EventController::class, 'store']);
 
+Route::delete('/events/{id}', [EventController::class, 'destroy']);
+
  
