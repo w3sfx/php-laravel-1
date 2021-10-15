@@ -9,8 +9,20 @@ use App\Models\Event;
 class EventController extends Controller
 {
     public function index() {
-        
-        $events = Event::all();
+
+        $search = request('search');
+
+        if($search) {
+
+            $events =
+            Event::where();
+
+        }
+
+
+        else {
+            $events = Event::all();
+        }
 
         return view('welcome', ['events' => $events]);
     }
@@ -85,6 +97,31 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
 
         return view('events.edit', ['event' => $event]);
+
+    }
+
+    public function update(Request $request) {
+
+        $data = $request->all();
+
+        // Image Upload
+        if($request->hasFile('image') && $request->file('image')->isValid()) {
+
+            $requestImage = $request->image;
+
+            $extension = $requestImage->extension();
+
+            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+
+            $requestImage->move(public_path('img/events'), $imageName);
+
+            $data['image'] = $imageName;
+
+        }
+
+        Event::findOrFail($request->id)->update($data);
+
+        return redirect('/dashboard')->with('msg', 'Evento editado com sucesso!');
 
     }
 

@@ -29,4 +29,4 @@ Route::delete('/events/{id}', [EventController::class, 'destroy']);
 
 Route::get('events/edit/{id}', [EventController::class, 'edit']);
 
- 
+Route::put('events/update/{id}', [EventController::class, 'update']);
